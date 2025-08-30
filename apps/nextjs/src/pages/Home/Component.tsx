@@ -3,7 +3,6 @@ import { TasksProvider } from '@/components/features/organisms/Tasks';
 import { Flex, Stack } from '@/components/ui/atoms';
 import { Head } from '@/components/ui/atoms/Head';
 import { getHomeDetailId, isHomeDetailURL, useRouter } from '@/router';
-import type React from 'react';
 import { memo } from 'react';
 import { Content } from './Content';
 import { FavoriteProjects } from './FavoriteProjects';
@@ -18,7 +17,7 @@ type Props = {
   fetchTaskDetailQuery: (variables: { taskId: string }) => Promise<void>;
 };
 
-export const Component: React.FC<Props> = memo<Props>((props) => {
+export const Component = memo<Props>(function Component(props) {
   const { fetchTaskDetailQuery } = props;
   const { navigateToHome } = useRouter();
 
@@ -49,4 +48,3 @@ export const Component: React.FC<Props> = memo<Props>((props) => {
     </TasksProvider>
   );
 });
-Component.displayName = 'Component';

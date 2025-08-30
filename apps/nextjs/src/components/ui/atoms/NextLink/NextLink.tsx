@@ -5,7 +5,6 @@ import {
   routes,
 } from '@/router';
 import Link, { type LinkProps } from 'next/link';
-import type React from 'react';
 import { type PropsWithChildren, memo, useMemo } from 'react';
 
 type Props = PropsWithChildren<
@@ -14,7 +13,7 @@ type Props = PropsWithChildren<
   }
 >;
 
-export const NextLink: React.FC<Props> = memo<Props>((props) => {
+export const NextLink = memo(function NextLink(props: Props) {
   const href = useMemo(() => {
     return typeof props.href === 'object'
       ? convertPathnameObjToPathname(props.href)
@@ -29,4 +28,3 @@ export const NextLink: React.FC<Props> = memo<Props>((props) => {
 
   return <Link {...props} href={href} />;
 });
-NextLink.displayName = 'NextLink';

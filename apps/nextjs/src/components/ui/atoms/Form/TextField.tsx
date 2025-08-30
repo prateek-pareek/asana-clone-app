@@ -1,13 +1,12 @@
 import { FormControl, FormErrorMessage, Input } from '@/components/ui/atoms';
 import { type FieldInputProps, useField } from 'formik';
-import type React from 'react';
 import { memo } from 'react';
 
 type Props = {
   name: string;
 };
 
-export const TextField: React.FC<Props> = memo((props) => {
+export const TextField = memo(function TextField(props: Props) {
   const { name } = props;
   const [field, meta] = useField(name);
 
@@ -18,7 +17,7 @@ type ComponentProps = Props &
   FieldInputProps<string> & {
     error: string;
   };
-const Component: React.FC<ComponentProps> = memo((props) => {
+const Component = memo(function Component(props: ComponentProps) {
   const { error, ...rest } = props;
 
   console.log('render!: ', props.name);
@@ -30,5 +29,3 @@ const Component: React.FC<ComponentProps> = memo((props) => {
     </FormControl>
   );
 });
-Component.displayName = 'Component';
-TextField.displayName = 'TextField';

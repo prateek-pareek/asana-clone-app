@@ -23,14 +23,14 @@ type Props = {
 };
 
 const HEIGHT = '37px';
-export const Input: React.FC<Props> = memo((props) => {
+export const Input = memo(function Input(props: Props) {
   const { taskId, onClose } = props;
   const popoverDisclosure = useDisclosure();
   const { taskTagIds } = useTaskTagIdsByTaskId(taskId);
   const { addTaskTag, deleteTaskTag } = useTaskTagCommand();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const { ref } = useClickOutside(onClose, {
+  const { ref } = useClickOutside<HTMLDivElement>(onClose, {
     hasClickedOutside: (e, helper) => {
       if (helper.isContainInPopoverContent(e)) return false;
       return true;
@@ -125,4 +125,3 @@ export const Input: React.FC<Props> = memo((props) => {
     </TagMenu>
   );
 });
-Input.displayName = 'Input';

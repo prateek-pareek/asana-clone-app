@@ -1,5 +1,4 @@
 import { MenuItem } from '@/components/ui/organisms/Menu';
-import type React from 'react';
 import { memo, useCallback } from 'react';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
   onChange?: (val: string) => void;
 };
 
-export const Option: React.FC<Props> = memo<Props>((props) => {
+export const Option = memo(function Option(props: Props) {
   const handleChange = useCallback(
     (val: string) => {
       props.onChange?.(val);
@@ -20,4 +19,3 @@ export const Option: React.FC<Props> = memo<Props>((props) => {
     <MenuItem onClick={() => handleChange(props.value)}>{props.text}</MenuItem>
   );
 });
-Option.displayName = 'Option';

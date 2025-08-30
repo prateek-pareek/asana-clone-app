@@ -7,7 +7,7 @@
     "npm": "please use pnpm",
     "yarn": "please use pnpm"
   },
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "cz": "cz",
     "dev": "turbo run dev",
@@ -16,7 +16,8 @@
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
-    "tsc": "turbo run tsc"
+    "tsc": "turbo run tsc",
+    "lefthook": "lefthook"
   },
   "devDependencies": {
     "commitizen": "^4.3.1",

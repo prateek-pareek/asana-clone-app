@@ -17,7 +17,7 @@ type Props = {
   focusedBorder?: boolean;
 } & Omit<InputProps, 'onChange'>;
 
-export const TasksNameField: React.FC<Props> = memo<Props>((props) => {
+export const TasksNameField = memo(function TasksNameField(props: Props) {
   const [value, setValue] = useState<string>(props.value);
   const { mountedRef } = useMountedRef();
   const {
@@ -37,7 +37,7 @@ export const TasksNameField: React.FC<Props> = memo<Props>((props) => {
       },
       [containerRef],
     );
-  const { ref, removeEventListener } = useClickOutside(
+  const { ref, removeEventListener } = useClickOutside<HTMLDivElement>(
     async () => {
       if (!value) await props.deleteTask?.();
     },
@@ -117,4 +117,3 @@ export const TasksNameField: React.FC<Props> = memo<Props>((props) => {
     </Flex>
   );
 });
-TasksNameField.displayName = 'TasksNameField';

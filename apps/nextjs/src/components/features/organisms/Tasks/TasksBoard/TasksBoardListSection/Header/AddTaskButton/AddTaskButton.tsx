@@ -2,14 +2,14 @@ import { useTasksTask } from '@/components/features/organisms/Tasks/hooks';
 import { Icon, IconButton } from '@/components/ui/atoms';
 import { Tooltip } from '@/components/ui/molecules';
 import { useTooltip } from '@/components/ui/molecules/Tooltip/useTooltip';
-import type React from 'react';
+import type { Ref } from 'react';
 import { memo, useCallback } from 'react';
 
 type Props = {
   taskSectionId: string;
 };
 
-export const AddTaskButton: React.FC<Props> = memo((props) => {
+export const AddTaskButton = memo(function AddTaskButton(props: Props) {
   const { ref, isOpen, onClose } = useTooltip();
   const { addTask } = useTasksTask();
 
@@ -26,7 +26,7 @@ export const AddTaskButton: React.FC<Props> = memo((props) => {
       isOpen={isOpen}
     >
       <IconButton
-        ref={ref}
+        ref={ref as Ref<HTMLButtonElement>}
         aria-label="Add task button"
         icon={<Icon icon="plus" color="text.muted" />}
         variant="ghost"
@@ -36,4 +36,3 @@ export const AddTaskButton: React.FC<Props> = memo((props) => {
     </Tooltip>
   );
 });
-AddTaskButton.displayName = 'AddTaskButton';

@@ -1,10 +1,9 @@
 import { Text, type TextProps } from '@/components/ui/atoms';
-import type React from 'react';
 
 type Props = TextProps;
 export type MoreLinkProps = Props;
 
-export const MoreLink: React.FC<Props> = (props) => {
+export function MoreLink(props: Props) {
   return (
     <Text
       as="span"
@@ -17,4 +16,4 @@ export const MoreLink: React.FC<Props> = (props) => {
       {...props}
     />
   );
-};
+}

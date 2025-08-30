@@ -5,17 +5,16 @@ import {
   type PopoverContentProps,
 } from '@/components/ui/organisms/Popover';
 import { useClickOutside } from '@/hooks';
-import type React from 'react';
 import { memo } from 'react';
 
 type Props = PopoverContentProps & {
   onClose: () => void;
 };
 
-export const ProjectTeammateMenuContent: React.FC<Props> = memo<Props>(
-  (props) => {
+export const ProjectTeammateMenuContent = memo(
+  function ProjectTeammateMenuContent(props: Props) {
     const { onClose, children, ...rest } = props;
-    const { ref } = useClickOutside(onClose, {
+    const { ref } = useClickOutside<HTMLDivElement>(onClose, {
       hasClickedOutside: (e, helpers) => {
         if (helpers.isContainInPopoverTrigger(e)) return false;
         return true;
@@ -41,4 +40,3 @@ export const ProjectTeammateMenuContent: React.FC<Props> = memo<Props>(
     );
   },
 );
-ProjectTeammateMenuContent.displayName = 'ProjectTeammateMenuContent';

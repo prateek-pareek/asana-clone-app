@@ -1,12 +1,11 @@
 import { useReactNodeView } from '@/components/ui/organisms/Editor/Editors/ReactNodeView';
 import { useProjectTaskQuery } from '@/hooks/queries/entities';
 import type { MentionAttrs } from '@/shared/prosemirror/schema';
-import type React from 'react';
 import { memo } from 'react';
 import { Loading } from './Loading';
 import { TaskLink } from './TaskLink';
 
-export const Task: React.FC = memo(() => {
+export const Task = memo(function Task() {
   const context = useReactNodeView();
   const attrs = context.node?.attrs as MentionAttrs;
 
@@ -17,4 +16,3 @@ export const Task: React.FC = memo(() => {
 
   return <TaskLink projectTaskId={projectTask.id} />;
 });
-Task.displayName = 'Task';

@@ -18,13 +18,13 @@ type Props = {
   initialFocusRef: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export const Content: React.FC<Props> = memo<Props>((props) => {
+export const Content = memo(function Content(props: Props) {
   const { projectTeammateId, initialFocusRef, onClose } = props;
   const { projectTeammate, role } = useProjectTeammate(projectTeammateId);
   const { setProjectTeammateById } = useProjectTeammatesCommand();
   const { teammate } = useTeammate(projectTeammate.teammateId);
 
-  const { ref } = useClickOutside(onClose);
+  const { ref } = useClickOutside<HTMLDivElement>(onClose);
 
   const handleChangeRole = useCallback(
     async (value: string) => {
@@ -51,4 +51,3 @@ export const Content: React.FC<Props> = memo<Props>((props) => {
     </Portal>
   );
 });
-Content.displayName = 'Content';

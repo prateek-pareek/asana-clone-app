@@ -1,7 +1,6 @@
 import { Text, type TextProps } from '@/components/ui/atoms';
 import { formatDueDate } from '@/shared/date';
 import { dateFns } from '@/shared/dateFns';
-import type React from 'react';
 import { useMemo } from 'react';
 
 type Props = TextProps & {
@@ -9,7 +8,7 @@ type Props = TextProps & {
   fallback?: string;
 };
 
-export const DueDate: React.FC<Props> = (props) => {
+export function DueDate(props: Props) {
   const { dueDate, fallback, ...rest } = props;
   const isBeforeDate = useMemo(
     () => dateFns.isBeforeDay(new Date(dueDate), new Date()),
@@ -33,4 +32,4 @@ export const DueDate: React.FC<Props> = (props) => {
       {rest.children}
     </Text>
   );
-};
+}

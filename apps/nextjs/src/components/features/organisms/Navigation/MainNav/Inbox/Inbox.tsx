@@ -1,11 +1,10 @@
 import { ROUTE_INBOX } from '@/router';
 import { useRouter } from 'next/router';
-import type React from 'react';
 import { memo, useMemo } from 'react';
 import { NavListItem } from '../../NavListItem';
 import type { NavListItem as TNavListItem } from '../../type';
 
-export const Inbox: React.FC = memo(() => {
+export const Inbox = memo(function Inbox() {
   const router = useRouter();
 
   const item = useMemo<TNavListItem>(
@@ -21,4 +20,3 @@ export const Inbox: React.FC = memo(() => {
 
   return <NavListItem item={item} />;
 });
-Inbox.displayName = 'Inbox';

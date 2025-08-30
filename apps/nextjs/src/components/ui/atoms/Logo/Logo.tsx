@@ -1,5 +1,4 @@
 import { type IconProps, createIcon, theme } from '@chakra-ui/react';
-import type React from 'react';
 
 const LogoIcon = createIcon({
   viewBox: '0 0 109 25',
@@ -23,8 +22,8 @@ const LogoIcon = createIcon({
 
 type Props = IconProps;
 
-export const Logo: React.FC<Props> = (props) => {
+export function Logo(props: Props) {
   return (
     <LogoIcon color="whiteAlpha" w="auto" h="1.5em" ml="-2px" {...props} />
   );
-};
+}

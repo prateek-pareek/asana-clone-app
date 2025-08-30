@@ -1,6 +1,5 @@
 import { Checkbox } from '@/components/ui/atoms';
 import { type FieldInputProps, useField } from 'formik';
-import type React from 'react';
 import { type PropsWithChildren, memo } from 'react';
 
 type Props = PropsWithChildren<{
@@ -8,7 +7,7 @@ type Props = PropsWithChildren<{
   value: string;
 }>;
 
-export const CheckboxField: React.FC<Props> = memo((props) => {
+export const CheckboxField = memo(function CheckboxField(props: Props) {
   const [field] = useField({
     name: props.name,
     type: 'checkbox',
@@ -19,8 +18,6 @@ export const CheckboxField: React.FC<Props> = memo((props) => {
 });
 
 type ComponentProps = Props & FieldInputProps<string>;
-const Component: React.FC<ComponentProps> = memo((props) => {
+const Component = memo(function Component(props: ComponentProps) {
   return <Checkbox size="sm" isChecked={props.checked} {...props} />;
 });
-Component.displayName = 'Component';
-CheckboxField.displayName = 'CheckboxField';
