@@ -1,1 +1,1 @@
-export * from './MembersSection';
+export { MembersSection } from './MembersSection';

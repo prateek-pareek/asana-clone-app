@@ -1,2 +1,2 @@
-export * from './ProjectRoleInputPopover';
-export * from './Content';
+export { ProjectRoleInputPopover } from './ProjectRoleInputPopover';
+export { Content } from './Content';

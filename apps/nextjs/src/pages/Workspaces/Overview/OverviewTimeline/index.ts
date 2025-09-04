@@ -1,1 +1,1 @@
-export * from './OverviewTimeline';
+export { OverviewTimeline } from './OverviewTimeline';

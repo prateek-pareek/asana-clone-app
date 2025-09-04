@@ -1,3 +1,3 @@
-export * from './OverviewSectionHeader';
-export * from './OverviewSectionHeaderHeading';
-export * from './OverviewSectionHeaderRight';
+export { OverviewSectionHeader } from './OverviewSectionHeader';
+export { OverviewSectionHeaderHeading } from './OverviewSectionHeaderHeading';
+export { OverviewSectionHeaderRight } from './OverviewSectionHeaderRight';

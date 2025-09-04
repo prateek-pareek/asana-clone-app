@@ -1,1 +1,1 @@
-export * from './ProjectRoleAddMember';
+export { ProjectRoleAddMember } from './ProjectRoleAddMember';

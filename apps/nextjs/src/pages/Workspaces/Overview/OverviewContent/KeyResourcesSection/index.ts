@@ -1,1 +1,1 @@
-export * from './KeyResourcesSection';
+export { KeyResourcesSection } from './KeyResourcesSection';

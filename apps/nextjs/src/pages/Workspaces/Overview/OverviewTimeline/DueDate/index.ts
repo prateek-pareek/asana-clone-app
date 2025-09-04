@@ -1,1 +1,1 @@
-export * from './DueDate';
+export { DueDate } from './DueDate';

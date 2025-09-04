@@ -1,1 +1,1 @@
-export * from './SortMenu';
+export { SortMenu } from './SortMenu';
