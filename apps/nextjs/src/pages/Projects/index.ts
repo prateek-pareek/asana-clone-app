@@ -1,2 +1,1 @@
-export * from './Component';
-export * from './Container';
+export { Container } from './Container';

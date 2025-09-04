@@ -1,6 +1,6 @@
-import type { GetLayout } from '@/@types/next';
+'use client';
+
 import { PageLoader } from '@/components/ui/molecules';
-import { LayoutDefault } from '@/components/ui/organisms/Layout';
 import {
   useMyTasksDetailPageQuery,
   useMyTasksPageQuery,
@@ -11,7 +11,7 @@ import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { Component } from './Component';
 
-function ContainerComponent() {
+export function Container() {
   const { loading } = useMyTasksPageQuery();
   const { refetch } = useMyTasksDetailPageQuery();
   const { me } = useMe();
@@ -24,12 +24,14 @@ function ContainerComponent() {
   );
 
   return (
-    <Component loading={loading} fetchTaskDetailQuery={fetchTaskDetailQuery} />
+    <BeforeMountComponent>
+      <Component
+        loading={loading}
+        fetchTaskDetailQuery={fetchTaskDetailQuery}
+      />
+    </BeforeMountComponent>
   );
 }
-
-export const Container = ContainerComponent as typeof ContainerComponent &
-  GetLayout;
 
 function BeforeMountComponent(props: React.PropsWithChildren) {
   const { loading: queryLoading } = useTeammateTaskTabStatusQuery();
@@ -49,11 +51,3 @@ function BeforeMountComponent(props: React.PropsWithChildren) {
 
   return <>{props.children}</>;
 }
-
-Container.getLayout = (page) => {
-  return (
-    <LayoutDefault>
-      <BeforeMountComponent>{page}</BeforeMountComponent>
-    </LayoutDefault>
-  );
-};

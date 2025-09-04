@@ -5,7 +5,7 @@ import { Content } from './Content';
 import { useTaskDetailModal } from './useTaskDetailModal';
 
 type Props = {
-  backToPage: () => Promise<void>;
+  backToPage: () => void;
 };
 
 export const TaskDetailModal = memo(function TaskDetailModal(props: Props) {

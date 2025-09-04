@@ -4,6 +4,7 @@ import { ROUTE_MY_TASKS, useRouter } from '@/router';
 import { createProvider } from '@/shared/react/createProvider';
 import { useTask } from '@/store/entities/task';
 import { useTaskListCompletedStatus } from '@/store/entities/taskListCompletedStatus';
+import { useParams } from 'next/navigation';
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -30,6 +31,7 @@ const useValue = (props: Props): ContextProps => {
   const { taskListStatus } = useTasksTaskListStatus();
   const { isTaskListInComplete, isTaskListCompletedAll } =
     useTaskListCompletedStatus();
+  const params = useParams();
 
   const onOpening = useCallback(() => {
     setIsOpening(true);
@@ -40,12 +42,12 @@ const useValue = (props: Props): ContextProps => {
   }, []);
 
   useEffect(() => {
-    if (router.query[ROUTE_MY_TASKS.query]?.[0] === props.taskId) {
+    if (params?.[ROUTE_MY_TASKS.query]?.[0] === props.taskId) {
       setSelected(true);
       return;
     }
     setSelected(false);
-  }, [props.taskId, router]);
+  }, [props.taskId, params]);
 
   const onToggleDone = useCallback(async () => {
     // When incomplete tasks are listed and the user is trying to complete it

@@ -7,8 +7,9 @@ import {
   DrawerHeader,
 } from '@/components/ui/organisms/Drawer';
 import { useDnd } from '@/hooks/dnd/useDnd';
-import { isMyTasksBoardURL, useRouter } from '@/router';
+import { isMyTasksBoardURL } from '@/router';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import { usePathname } from 'next/navigation';
 import type React from 'react';
 import { memo, useEffect, useMemo } from 'react';
 import { useCustomizeMenu } from '../useCustomizeMenu';
@@ -23,12 +24,12 @@ export const Content: React.FC = memo(() => {
   const { tasksTaskColumnIds, setTaskColumnOrder } =
     useTasksTaskColumnCustomizable();
   const { list, handleDnd } = useDnd(tasksTaskColumnIds);
-  const { router } = useRouter();
+  const pathname = usePathname();
   const top = useMemo<number>(() => {
-    if (isMyTasksBoardURL(router))
+    if (isMyTasksBoardURL(pathname))
       return HEADER_HEIGHT + TASKS_HEADER_BOARD_HEIGHT;
     return HEADER_HEIGHT + TASKS_HEADER_HEIGHT;
-  }, [router]);
+  }, [pathname]);
 
   useEffect(() => {
     setTaskColumnOrder(list);

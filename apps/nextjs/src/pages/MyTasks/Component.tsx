@@ -18,7 +18,7 @@ import {
   useTeammateTaskTabStatus,
   useTeammateTaskTabStatusCommand,
 } from '@/store/entities/teammateTaskTabStatus';
-import type { NextRouter } from 'next/router';
+import { useParams, usePathname } from 'next/navigation';
 import React, { memo, useCallback, useEffect } from 'react';
 import { Board } from './Board';
 import { Calendar } from './Calendar';
@@ -54,16 +54,16 @@ export const Component = memo<Props>(function Component(props) {
 });
 
 const mapURLtoTabStatus = ({
-  router,
+  pathname,
   tabStatus,
 }: {
-  router: NextRouter;
+  pathname: string | null;
   tabStatus: TeammateTaskTabStatus['statusCode'];
 }): Index => {
-  if (isMyTasksListURL(router)) return TASKS_INDEX;
-  if (isMyTasksBoardURL(router)) return BOARD_INDEX;
-  if (isMyTasksCalendarURL(router)) return CALENDAR_INDEX;
-  if (isMyTasksFilesURL(router)) return FILES_INDEX;
+  if (isMyTasksListURL(pathname)) return TASKS_INDEX;
+  if (isMyTasksBoardURL(pathname)) return BOARD_INDEX;
+  if (isMyTasksCalendarURL(pathname)) return CALENDAR_INDEX;
+  if (isMyTasksFilesURL(pathname)) return FILES_INDEX;
 
   switch (tabStatus) {
     case TeammateTaskTabStatusCode.List:
@@ -85,15 +85,19 @@ const WrappedComponent = memo(function WrappedComponent() {
     navigateToMyTasksBoard,
     navigateToMyTasksCalendar,
     navigateToMyTasksFiles,
-    router,
   } = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
   const { isTabStatus, teammateTaskTabStatus } = useTeammateTaskTabStatus();
   const { setTabStatus } = useTeammateTaskTabStatusCommand();
   const { isSorted, sortBy } = useMyTasksTaskListStatus();
   const { queryLoading, startTabContentLoading, endTabContentLoading } =
     useMyTasksContext();
   const [tabIndex, setTabIndex] = React.useState<Index>(
-    mapURLtoTabStatus({ router, tabStatus: teammateTaskTabStatus.statusCode }),
+    mapURLtoTabStatus({
+      pathname,
+      tabStatus: teammateTaskTabStatus.statusCode,
+    }),
   );
 
   const setLoading = useCallback(() => {
@@ -110,7 +114,7 @@ const WrappedComponent = memo(function WrappedComponent() {
           setLoading();
           setTabIndex(TASKS_INDEX);
           setTabStatus('List');
-          await navigateToMyTasksList();
+          navigateToMyTasksList();
           break;
         }
         case BOARD_INDEX: {
@@ -118,14 +122,14 @@ const WrappedComponent = memo(function WrappedComponent() {
           setLoading();
           setTabIndex(BOARD_INDEX);
           setTabStatus('Board');
-          await navigateToMyTasksBoard();
+          navigateToMyTasksBoard();
           break;
         }
         case CALENDAR_INDEX: {
           setLoading();
           setTabIndex(CALENDAR_INDEX);
           setTabStatus('Calendar');
-          await navigateToMyTasksCalendar();
+          navigateToMyTasksCalendar();
           break;
         }
         case FILES_INDEX: {
@@ -152,7 +156,7 @@ const WrappedComponent = memo(function WrappedComponent() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: Force update tab status based on URL
   useEffect(() => {
     // When task detail opening
-    if (isMyTasksDetailURL(router)) {
+    if (isMyTasksDetailURL(params, pathname)) {
       switch (true) {
         case isTabStatus('List'): {
           setTabIndex(TASKS_INDEX);
@@ -174,20 +178,20 @@ const WrappedComponent = memo(function WrappedComponent() {
       return;
     }
 
-    if (isMyTasksListURL(router)) {
+    if (isMyTasksListURL(pathname)) {
       setTabStatus('List');
       return;
     }
-    if (isMyTasksBoardURL(router)) {
+    if (isMyTasksBoardURL(pathname)) {
       if (isSorted('project')) sortBy(TaskListSortStatusCode.None);
       setTabStatus('Board');
       return;
     }
-    if (isMyTasksCalendarURL(router)) {
+    if (isMyTasksCalendarURL(pathname)) {
       setTabStatus('Calendar');
       return;
     }
-    if (isMyTasksFilesURL(router)) {
+    if (isMyTasksFilesURL(pathname)) {
       setTabStatus('Files');
       return;
     }

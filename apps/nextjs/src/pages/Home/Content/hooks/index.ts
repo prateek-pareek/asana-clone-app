@@ -1,2 +1,2 @@
-export * from './useHomeContentDom';
-export * from './useHomeContentVerticalScroll';
+export { useHomeContentDom } from './useHomeContentDom';
+export { useTasksListContentVerticalScroll } from './useHomeContentVerticalScroll';

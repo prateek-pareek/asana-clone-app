@@ -1,1 +1,1 @@
-export * from './RecentProjects';
+export { RecentProjects } from './RecentProjects';

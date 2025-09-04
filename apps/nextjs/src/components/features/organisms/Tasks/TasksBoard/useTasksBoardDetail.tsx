@@ -2,20 +2,21 @@ import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
 import { useTaskDetailDrawer } from '@/components/features/organisms/TaskDetails';
 import { useTasksBoardListItemElement } from '@/components/features/organisms/Tasks/TasksBoard/TasksBoardListItem';
 import type { UseClickOutsideOptionsHasClickedOutside } from '@/hooks';
-import { useRouter } from '@/router';
 import { isHTMLElement } from '@/shared/isHTMLElement';
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 
 type Props = {
-  isTaskDetailURL: (router: NextRouter) => boolean;
-  getTaskDetailId: (router: NextRouter) => string;
+  isTaskDetailURL: (params: Params, pathname: string | null) => boolean;
+  getTaskDetailId: (params: Params, pathname: string | null) => string;
   fetchQuery: (variables: { taskId: string }) => Promise<void>;
 };
 
 export const useTasksBoardDetail = (props: Props) => {
   const { isTaskDetailURL, getTaskDetailId, fetchQuery } = props;
-  const { router } = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
   const { taskId, setId, setLoading } = useTaskDetail();
   const { className } = useTasksBoardListItemElement();
   const hasClickedOutside =
@@ -35,9 +36,9 @@ export const useTasksBoardDetail = (props: Props) => {
   const { onOpen } = useTaskDetailDrawer();
 
   useEffect(() => {
-    if (!isTaskDetailURL(router)) return;
+    if (!isTaskDetailURL(params, pathname)) return;
 
-    const newId = getTaskDetailId(router);
+    const newId = getTaskDetailId(params, pathname);
     if (taskId === newId) return;
     console.log('render!');
 
@@ -50,7 +51,8 @@ export const useTasksBoardDetail = (props: Props) => {
       }, 200);
     });
   }, [
-    router,
+    params,
+    pathname,
     onOpen,
     setId,
     taskId,

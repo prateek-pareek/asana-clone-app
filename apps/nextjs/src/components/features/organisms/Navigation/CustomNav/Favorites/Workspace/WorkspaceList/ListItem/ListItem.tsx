@@ -4,12 +4,9 @@ import {
 } from '@/components/features/organisms/Navigation';
 import { Flex, Icon, Link, NextLink, Text } from '@/components/ui/atoms';
 import { useLinkHoverStyle } from '@/hooks';
-import {
-  ROUTE_WORKSPACES,
-  ROUTE_WORKSPACES_OVERVIEW,
-  useRouter,
-} from '@/router';
+import { ROUTE_WORKSPACES, ROUTE_WORKSPACES_OVERVIEW } from '@/router';
 import { useWorkspace } from '@/store/entities/workspace';
+import { usePathname } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { WorkspaceMenu } from './WorkspaceMenu';
 
@@ -17,10 +14,10 @@ export const ListItem = memo(function ListItem() {
   const { isExpanded } = useNavigation();
   const { workspace } = useWorkspace();
   const { _hover, selectedStyle } = useLinkHoverStyle();
-  const { router } = useRouter();
+  const pathname = usePathname();
   const selected = useMemo(
-    () => router.asPath.includes(ROUTE_WORKSPACES.href.pathname(workspace.id)),
-    [workspace.id, router.asPath],
+    () => pathname?.includes(ROUTE_WORKSPACES.href.pathname(workspace.id)),
+    [workspace.id, pathname],
   );
 
   return (

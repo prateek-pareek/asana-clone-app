@@ -1,14 +1,16 @@
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
 import { ROUTE_HOME } from './routes';
 
-export const isHomeDetailURL = (router: NextRouter): boolean => {
+export const isHomeDetailURL = (params: Params): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_HOME.query]?.length &&
-    !!router.query[ROUTE_HOME.query]?.[0]
+    !!params &&
+    !!params[ROUTE_HOME.query]?.length &&
+    !!params[ROUTE_HOME.query]?.[0]
   );
 };
-export const getHomeDetailId = (router: NextRouter): string =>
-  (isHomeDetailURL(router) &&
-    (router.query?.[ROUTE_HOME.query]?.[0] as string)) ||
-  '';
+export const getHomeDetailId = (params: Params): string => {
+  return (
+    (isHomeDetailURL(params) && (params?.[ROUTE_HOME.query]?.[0] as string)) ||
+    ''
+  );
+};

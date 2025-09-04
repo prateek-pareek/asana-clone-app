@@ -1,3 +1,5 @@
+'use client';
+
 import { useHomePageQuery } from '@/hooks/queries/app';
 import { useHomeTaskDetailPageQuery } from '@/hooks/queries/app';
 import { useMe } from '@/store/entities/me';

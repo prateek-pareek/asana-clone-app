@@ -1,20 +1,21 @@
 import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
 import { useTaskDetailSide } from '@/components/features/organisms/TaskDetails';
-import { useRouter } from '@/router';
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 type Props = {
-  isTaskDetailURL: (router: NextRouter) => boolean;
-  getTaskDetailId: (router: NextRouter) => string;
+  isTaskDetailURL: (params: Params, pathname: string | null) => boolean;
+  getTaskDetailId: (params: Params, pathname: string | null) => string;
   fetchQuery: (variables: { taskId: string }) => Promise<void>;
 };
 
 export const useInboxTaskDetail = (props: Props) => {
-  const { router } = useRouter();
   const { setId, setLoading, taskId, resetId } = useTaskDetail();
   const { onOpen } = useTaskDetailSide();
   const { isTaskDetailURL, getTaskDetailId, fetchQuery } = props;
+  const params = useParams();
+  const pathname = usePathname();
 
   useEffect(() => {
     return () => {
@@ -23,8 +24,8 @@ export const useInboxTaskDetail = (props: Props) => {
   }, [resetId]);
 
   useEffect(() => {
-    if (!isTaskDetailURL(router)) return;
-    const newId = getTaskDetailId(router);
+    if (!isTaskDetailURL(params, pathname)) return;
+    const newId = getTaskDetailId(params, pathname);
     if (taskId === newId) return;
     console.log('useInboxTaskDetail!: ', newId);
 
@@ -37,7 +38,8 @@ export const useInboxTaskDetail = (props: Props) => {
       }, 200);
     });
   }, [
-    router,
+    params,
+    pathname,
     onOpen,
     setLoading,
     setId,

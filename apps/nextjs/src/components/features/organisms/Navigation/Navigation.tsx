@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Flex } from '@/components/ui/atoms';
 import { memo } from 'react';
 import { CustomNav } from './CustomNav';

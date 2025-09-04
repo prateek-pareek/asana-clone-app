@@ -1,24 +1,25 @@
 import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
 import { useTaskDetailModal } from '@/components/features/organisms/TaskDetails';
-import { useRouter } from '@/router';
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 type Props = {
-  isTaskDetailURL: (router: NextRouter) => boolean;
-  getTaskDetailId: (router: NextRouter) => string;
+  isTaskDetailURL: (params: Params, pathname: string | null) => boolean;
+  getTaskDetailId: (params: Params, pathname: string | null) => string;
   fetchQuery: (variables: { taskId: string }) => Promise<void>;
 };
 
 export const useTasksFilesDetail = (props: Props) => {
-  const { router } = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
   const { setId, setLoading } = useTaskDetail();
   const { onOpen } = useTaskDetailModal();
   const { isTaskDetailURL, getTaskDetailId, fetchQuery } = props;
 
   useEffect(() => {
-    if (!isTaskDetailURL(router)) return;
-    const newId = getTaskDetailId(router);
+    if (!isTaskDetailURL(params, pathname)) return;
+    const newId = getTaskDetailId(params, pathname);
     console.log('useTasksFilesDetail!: ', newId);
 
     setLoading(true);
@@ -30,7 +31,8 @@ export const useTasksFilesDetail = (props: Props) => {
       }, 200);
     });
   }, [
-    router,
+    params,
+    pathname,
     onOpen,
     setLoading,
     setId,

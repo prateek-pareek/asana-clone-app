@@ -1,4 +1,4 @@
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
 import {
   ROUTE_MY_TASKS,
   ROUTE_MY_TASKS_BOARD,
@@ -7,57 +7,67 @@ import {
   ROUTE_MY_TASKS_LIST,
 } from './routes';
 
-export const isMyTasksListURL = (router: NextRouter): boolean => {
-  return router.asPath === ROUTE_MY_TASKS_LIST.href.pathname();
+export const isMyTasksListURL = (pathname: string | null): boolean => {
+  return pathname === ROUTE_MY_TASKS_LIST.href.pathname();
 };
 
-export const isMyTasksBoardURL = (router: NextRouter): boolean => {
-  return router.asPath === ROUTE_MY_TASKS_BOARD.href.pathname();
+export const isMyTasksBoardURL = (pathname: string | null): boolean => {
+  return pathname === ROUTE_MY_TASKS_BOARD.href.pathname();
 };
 
-export const isMyTasksCalendarURL = (router: NextRouter): boolean => {
-  return router.asPath === ROUTE_MY_TASKS_CALENDAR.href.pathname();
+export const isMyTasksCalendarURL = (pathname: string | null): boolean => {
+  return pathname === ROUTE_MY_TASKS_CALENDAR.href.pathname();
 };
 
-export const isMyTasksFilesURL = (router: NextRouter): boolean => {
-  return router.asPath === ROUTE_MY_TASKS_FILES.href.pathname();
+export const isMyTasksFilesURL = (pathname: string | null): boolean => {
+  return pathname === ROUTE_MY_TASKS_FILES.href.pathname();
 };
 
 // TODO: Should be verified
-export const isMyTasksDetailURL = (router: NextRouter): boolean => {
+export const isMyTasksDetailURL = (
+  params: Params,
+  pathname: string | null,
+): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_MY_TASKS.query]?.length &&
-    !!router.query[ROUTE_MY_TASKS.query]?.[0] &&
-    !isMyTasksListURL(router) &&
-    !isMyTasksBoardURL(router) &&
-    !isMyTasksCalendarURL(router) &&
-    !isMyTasksFilesURL(router)
+    !!params &&
+    !!params[ROUTE_MY_TASKS.query]?.length &&
+    !!params[ROUTE_MY_TASKS.query]?.[0] &&
+    !isMyTasksListURL(pathname) &&
+    !isMyTasksBoardURL(pathname) &&
+    !isMyTasksCalendarURL(pathname) &&
+    !isMyTasksFilesURL(pathname)
   );
 };
 export const isMyTasksDetailURLById = (
-  router: NextRouter,
+  params: Params,
+  pathname: string | null,
   taskId: string,
 ): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_MY_TASKS.query]?.length &&
-    !!router.query[ROUTE_MY_TASKS.query]?.[0] &&
-    router.query[ROUTE_MY_TASKS.query]?.[0] === taskId &&
-    !isMyTasksBoardURL(router) &&
-    !isMyTasksCalendarURL(router) &&
-    !isMyTasksFilesURL(router)
+    !!params &&
+    !!params[ROUTE_MY_TASKS.query]?.length &&
+    !!params[ROUTE_MY_TASKS.query]?.[0] &&
+    params[ROUTE_MY_TASKS.query]?.[0] === taskId &&
+    !isMyTasksBoardURL(pathname) &&
+    !isMyTasksCalendarURL(pathname) &&
+    !isMyTasksFilesURL(pathname)
   );
 };
 
-export const getMyTasksDetailId = (router: NextRouter): string =>
-  (isMyTasksDetailURL(router) &&
-    (router.query?.[ROUTE_MY_TASKS.query]?.[0] as string)) ||
+export const getMyTasksDetailId = (
+  params: Params,
+  pathname: string | null,
+): string =>
+  (isMyTasksDetailURL(params, pathname) &&
+    (params?.[ROUTE_MY_TASKS.query]?.[0] as string)) ||
   '';
 
-export const getMyTasksDetailFeedId = (router: NextRouter): string =>
-  (isMyTasksDetailURL(router) &&
-    (router.query?.[ROUTE_MY_TASKS.query]?.[1] as string)) ||
+export const getMyTasksDetailFeedId = (
+  params: Params,
+  pathname: string | null,
+): string =>
+  (isMyTasksDetailURL(params, pathname) &&
+    (params?.[ROUTE_MY_TASKS.query]?.[1] as string)) ||
   '';
 
 export const getMyTasksDetailFeedURL = (

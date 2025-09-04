@@ -1,2 +1,2 @@
-export * from './Content';
-export * from './hooks';
+export { Content } from './Content';
+export { useHomeContentDom, useTasksListContentVerticalScroll } from './hooks';

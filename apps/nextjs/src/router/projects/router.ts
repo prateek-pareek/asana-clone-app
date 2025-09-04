@@ -1,4 +1,4 @@
-import { useRouter as useRouterNext } from 'next/router';
+import { useRouter as useRouterNext } from 'next/navigation';
 import { useCallback } from 'react';
 import type { Options } from '../types';
 import {
@@ -15,78 +15,51 @@ export const useRouterProjects = () => {
   const { push } = router;
 
   const navigateToProjectsList = useCallback(
-    async (id: string, options?: Options) => {
-      await push(ROUTE_PROJECTS_LIST.href.pathname(id), undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, options?: Options) => {
+      push(ROUTE_PROJECTS_LIST.href.pathname(id), options);
     },
     [push],
   );
 
   const navigateToProjectsTaskDetail = useCallback(
-    async (id: string, taskId: string, options?: Options) => {
-      await push(`${ROUTE_PROJECTS.href.pathname(id)}/${taskId}`, undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, taskId: string, options?: Options) => {
+      push(`${ROUTE_PROJECTS.href.pathname(id)}/${taskId}`, options);
     },
     [push],
   );
 
   const navigateToProjectsTaskDetailFeed = useCallback(
-    async (
-      id: string,
-      taskId: string,
-      taskFeedId: string,
-      options?: Options,
-    ) => {
-      await push(
+    (id: string, taskId: string, taskFeedId: string, options?: Options) => {
+      push(
         `${ROUTE_PROJECTS.href.pathname(id)}/${taskId}/${taskFeedId}`,
-        undefined,
-        {
-          shallow: true,
-          ...options,
-        },
+        options,
       );
     },
     [push],
   );
 
   const navigateToProjectsBoard = useCallback(
-    async (id: string, options?: Options) => {
-      await push(ROUTE_PROJECTS_BOARD.href.pathname(id), undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, options?: Options) => {
+      push(ROUTE_PROJECTS_BOARD.href.pathname(id), options);
     },
     [push],
   );
   const navigateToProjectsCalendar = useCallback(
-    async (id: string, options?: Options) => {
-      await push(ROUTE_PROJECTS_CALENDAR.href.pathname(id), undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, options?: Options) => {
+      push(ROUTE_PROJECTS_CALENDAR.href.pathname(id), options);
     },
     [push],
   );
   const navigateToProjectsFiles = useCallback(
     async (id: string, options?: Options) => {
-      await push(ROUTE_PROJECTS_FILES.href.pathname(id), undefined, {
-        shallow: true,
-        ...options,
-      });
+      push(ROUTE_PROJECTS_FILES.href.pathname(id), options);
     },
     [push],
   );
 
   const navigateToProjectsOverview = useCallback(
-    async (id: string, options?: Options) => {
-      await push(ROUTE_PROJECTS_OVERVIEW.href.pathname(id), undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, options?: Options) => {
+      push(ROUTE_PROJECTS_OVERVIEW.href.pathname(id), options);
     },
     [push],
   );

@@ -1,4 +1,4 @@
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
 import {
   ROUTE_WORKSPACES,
   ROUTE_WORKSPACES_CALENDAR,
@@ -6,23 +6,26 @@ import {
   ROUTE_WORKSPACES_OVERVIEW,
 } from './routes';
 
-export const isWorkspacesURL = (router: NextRouter): boolean => {
-  return ROUTE_WORKSPACES.regex.test(router.asPath);
+export const isWorkspacesURL = (pathname: string | null): boolean => {
+  return ROUTE_WORKSPACES.regex.test(pathname || '');
 };
 
-export const isWorkspacesMessageURL = (router: NextRouter): boolean => {
-  return ROUTE_WORKSPACES_MESSAGES.regex.test(router.asPath);
+export const isWorkspacesMessageURL = (pathname: string | null): boolean => {
+  return ROUTE_WORKSPACES_MESSAGES.regex.test(pathname || '');
 };
 
-export const isWorkspacesCalendarURL = (router: NextRouter): boolean => {
-  return ROUTE_WORKSPACES_CALENDAR.regex.test(router.asPath);
+export const isWorkspacesCalendarURL = (pathname: string | null): boolean => {
+  return ROUTE_WORKSPACES_CALENDAR.regex.test(pathname || '');
 };
 
-export const isWorkspacesOverviewURL = (router: NextRouter): boolean => {
-  return ROUTE_WORKSPACES_OVERVIEW.regex.test(router.asPath);
+export const isWorkspacesOverviewURL = (pathname: string | null): boolean => {
+  return ROUTE_WORKSPACES_OVERVIEW.regex.test(pathname || '');
 };
 
-export const getWorkspacesIdFromURL = (router: NextRouter): string =>
-  (isWorkspacesURL(router) &&
-    (router.query?.[ROUTE_WORKSPACES.query.workspaceId] as string)) ||
+export const getWorkspacesIdFromURL = (
+  params: Params,
+  pathname: string | null,
+): string =>
+  (isWorkspacesURL(pathname) &&
+    (params?.[ROUTE_WORKSPACES.query.workspaceId] as string)) ||
   '';

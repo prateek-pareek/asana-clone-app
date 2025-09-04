@@ -1,3 +1,5 @@
-import type { NextRouter } from 'next/router';
+import type { useRouter } from 'next/navigation';
 
-export type Options = Parameters<NextRouter['push']>[2];
+type Push = ReturnType<typeof useRouter>['push'];
+
+export type Options = Parameters<Push>[1];

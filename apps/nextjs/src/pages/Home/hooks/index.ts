@@ -1,1 +1,1 @@
-export * from './useHomeTaskDetail';
+export { useHomeTaskDetail } from './useHomeTaskDetail';

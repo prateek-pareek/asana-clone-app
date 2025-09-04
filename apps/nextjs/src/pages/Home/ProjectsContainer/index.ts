@@ -1,1 +1,1 @@
-export * from './ProjectsContainer';
+export { PADDING_X, ProjectsContainer } from './ProjectsContainer';

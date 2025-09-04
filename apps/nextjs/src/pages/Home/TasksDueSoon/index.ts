@@ -1,1 +1,1 @@
-export * from './TasksDueSoon';
+export { TasksDueSoon } from './TasksDueSoon';

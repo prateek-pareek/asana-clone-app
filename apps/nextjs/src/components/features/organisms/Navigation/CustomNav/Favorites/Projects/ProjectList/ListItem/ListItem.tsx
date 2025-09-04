@@ -4,10 +4,11 @@ import {
 } from '@/components/features/organisms/Navigation';
 import { ColorBox, Flex, Link, NextLink, Text } from '@/components/ui/atoms';
 import { useLinkHoverStyle } from '@/hooks';
-import { ROUTE_PROJECTS_LIST, useRouter } from '@/router';
+import { ROUTE_PROJECTS_LIST } from '@/router';
 import { ROUTE_PROJECTS } from '@/router/projects';
 import { useProject } from '@/store/entities/project';
 import { useProjectBaseColor } from '@/store/entities/projectBaseColor';
+import { usePathname } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { ProjectMenu } from './ProjectMenu';
 
@@ -21,10 +22,10 @@ export const ListItem = memo(function ListItem(props: Props) {
   const { project } = useProject(projectId);
   const { projectBaseColor } = useProjectBaseColor(project.projectBaseColorId);
   const { _hover, selectedStyle } = useLinkHoverStyle();
-  const { router } = useRouter();
+  const pathname = usePathname();
   const selected = useMemo(
-    () => router.asPath.includes(ROUTE_PROJECTS.href.pathname(projectId)),
-    [projectId, router.asPath],
+    () => pathname?.includes(ROUTE_PROJECTS.href.pathname(projectId)),
+    [projectId, pathname],
   );
 
   return (

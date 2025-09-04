@@ -1,3 +1,5 @@
+'use client';
+
 import { Navigation } from '@/components/features/organisms/Navigation';
 import { Flex } from '@/components/ui/atoms';
 import type React from 'react';

@@ -1,4 +1,6 @@
-import type { NextRouter } from 'next/router';
+'use client';
+
+import type { Params } from '@/shared/nextjs/navigation';
 import {
   ROUTE_PROJECTS,
   ROUTE_PROJECTS_BOARD,
@@ -8,73 +10,95 @@ import {
   ROUTE_PROJECTS_OVERVIEW,
 } from './routes';
 
-export const isProjectsURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS.regex.test(router.asPath);
+export const isProjectsURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS.regex.test(pathname || '');
 };
 
-export const isProjectsListURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS_LIST.regex.test(router.asPath);
+export const isProjectsListURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS_LIST.regex.test(pathname || '');
 };
 
-export const isProjectsBoardURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS_BOARD.regex.test(router.asPath);
+export const isProjectsBoardURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS_BOARD.regex.test(pathname || '');
 };
 
-export const isProjectsCalendarURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS_CALENDAR.regex.test(router.asPath);
+export const isProjectsCalendarURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS_CALENDAR.regex.test(pathname || '');
 };
 
-export const isProjectsFilesURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS_FILES.regex.test(router.asPath);
+export const isProjectsFilesURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS_FILES.regex.test(pathname || '');
 };
 
-export const isProjectsOverviewURL = (router: NextRouter): boolean => {
-  return ROUTE_PROJECTS_OVERVIEW.regex.test(router.asPath);
+export const isProjectsOverviewURL = (pathname: string | null): boolean => {
+  return ROUTE_PROJECTS_OVERVIEW.regex.test(pathname || '');
 };
 
 // TODO: Should be verified
-export const isProjectsDetailURL = (router: NextRouter): boolean => {
+export const isProjectsDetailURL = (
+  params: Params,
+  pathname: string | null,
+): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_PROJECTS.query.projects]?.length &&
-    !!router.query[ROUTE_PROJECTS.query.projects]?.[0] &&
-    !isProjectsListURL(router) &&
-    !isProjectsBoardURL(router) &&
-    !isProjectsCalendarURL(router) &&
-    !isProjectsFilesURL(router) &&
-    !isProjectsOverviewURL(router)
+    !!params &&
+    !!params[ROUTE_PROJECTS.query.projects]?.length &&
+    !!params[ROUTE_PROJECTS.query.projects]?.[0] &&
+    !isProjectsListURL(pathname) &&
+    !isProjectsBoardURL(pathname) &&
+    !isProjectsCalendarURL(pathname) &&
+    !isProjectsFilesURL(pathname) &&
+    !isProjectsOverviewURL(pathname)
   );
 };
 export const isProjectsDetailURLById = (
-  router: NextRouter,
+  params: Params,
+  pathname: string | null,
   taskId: string,
 ): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_PROJECTS.query.projects]?.length &&
-    !!router.query[ROUTE_PROJECTS.query.projects]?.[0] &&
-    router.query[ROUTE_PROJECTS.query.projects]?.[0] === taskId &&
-    !isProjectsBoardURL(router) &&
-    !isProjectsCalendarURL(router) &&
-    !isProjectsFilesURL(router) &&
-    !isProjectsOverviewURL(router)
+    !!params &&
+    !!params[ROUTE_PROJECTS.query.projects]?.length &&
+    !!params[ROUTE_PROJECTS.query.projects]?.[0] &&
+    params[ROUTE_PROJECTS.query.projects]?.[0] === taskId &&
+    !isProjectsBoardURL(pathname) &&
+    !isProjectsCalendarURL(pathname) &&
+    !isProjectsFilesURL(pathname) &&
+    !isProjectsOverviewURL(pathname)
   );
 };
 
-export const getProjectsIdFromURL = (router: NextRouter): string =>
-  (isProjectsURL(router) &&
-    (router.query?.[ROUTE_PROJECTS.query.projectId] as string)) ||
-  '';
+export const getProjectsIdFromURL = (
+  params: Params,
+  pathname: string | null,
+): string => {
+  return (
+    (isProjectsURL(pathname) &&
+      (params?.[ROUTE_PROJECTS.query.projectId] as string)) ||
+    ''
+  );
+};
 
-export const getProjectsDetailId = (router: NextRouter): string =>
-  (isProjectsDetailURL(router) &&
-    (router.query?.[ROUTE_PROJECTS.query.projects]?.[0] as string)) ||
-  '';
+export const getProjectsDetailId = (
+  params: Params,
+  pathname: string | null,
+): string => {
+  return (
+    (isProjectsDetailURL(params, pathname) &&
+      (params?.[ROUTE_PROJECTS.query.projects]?.[0] as string)) ||
+    ''
+  );
+};
 
-export const getProjectsDetailFeedId = (router: NextRouter): string =>
-  (isProjectsDetailURL(router) &&
-    (router.query?.[ROUTE_PROJECTS.query.projects]?.[1] as string)) ||
-  '';
+export const getProjectsDetailFeedId = (
+  params: Params,
+  pathname: string | null,
+): string => {
+  return (
+    (isProjectsDetailURL(params, pathname) &&
+      (params?.[ROUTE_PROJECTS.query.projects]?.[1] as string)) ||
+    ''
+  );
+};
 
 export const getProjectsDetailFeedURL = (
   id: string,

@@ -8,7 +8,7 @@ import { useTaskDetailDrawer } from './useTaskDetailDrawer';
 import { useTaskDetailDrawerRef } from './useTaskDetailDrawerRef';
 
 type Props = {
-  backToPage: () => Promise<void>;
+  backToPage: () => void;
   hasClickedOutside: UseClickOutsideOptionsHasClickedOutside;
 };
 

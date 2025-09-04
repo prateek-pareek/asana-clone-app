@@ -9,7 +9,7 @@ import {
   useRouter,
 } from '@/router';
 import { useWorkspace } from '@/store/entities/workspace';
-import type { NextRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 import { Header } from './Header';
 import { Overview } from './Overview';
@@ -36,18 +36,21 @@ export const Component = memo(function Component(props: Props) {
   );
 });
 
-const mapURLtoTabIndex = ({ router }: { router: NextRouter }): Index => {
-  if (isWorkspacesOverviewURL(router)) return OVERVIEW_INDEX;
-  if (isWorkspacesMessageURL(router)) return MESSAGES_INDEX;
-  if (isWorkspacesCalendarURL(router)) return CALENDAR_INDEX;
+const mapURLtoTabIndex = ({ pathname }: { pathname: string | null }): Index => {
+  if (isWorkspacesOverviewURL(pathname)) return OVERVIEW_INDEX;
+  if (isWorkspacesMessageURL(pathname)) return MESSAGES_INDEX;
+  if (isWorkspacesCalendarURL(pathname)) return CALENDAR_INDEX;
 
   return OVERVIEW_INDEX;
 };
 
 const WrappedComponent = memo(function WrappedComponent() {
-  const { navigateToWorkspaceOverview, router } = useRouter();
+  const { navigateToWorkspaceOverview } = useRouter();
   const { loadingQuery, setLoadingTabContent } = useWorkspacesPageContext();
-  const [tabIndex, setTabIndex] = useState<Index>(mapURLtoTabIndex({ router }));
+  const pathname = usePathname();
+  const [tabIndex, setTabIndex] = useState<Index>(
+    mapURLtoTabIndex({ pathname }),
+  );
   const { workspace } = useWorkspace();
 
   const setLoading = useCallback(() => {
@@ -57,8 +60,8 @@ const WrappedComponent = memo(function WrappedComponent() {
     }, 200);
   }, [setLoadingTabContent]);
 
-  const navigateToOverview = useCallback(async () => {
-    await navigateToWorkspaceOverview(workspace.id);
+  const navigateToOverview = useCallback(() => {
+    navigateToWorkspaceOverview(workspace.id);
   }, [navigateToWorkspaceOverview, workspace.id]);
 
   const handleTabsChange = useCallback(
@@ -67,7 +70,7 @@ const WrappedComponent = memo(function WrappedComponent() {
         case OVERVIEW_INDEX: {
           setLoading();
           setTabIndex(OVERVIEW_INDEX);
-          await navigateToOverview();
+          navigateToOverview();
           break;
         }
         case MESSAGES_INDEX: {

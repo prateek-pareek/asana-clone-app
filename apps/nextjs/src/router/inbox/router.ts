@@ -1,4 +1,4 @@
-import { useRouter as useRouterNext } from 'next/router';
+import { useRouter as useRouterNext } from 'next/navigation';
 import { useCallback } from 'react';
 import type { Options } from '../types';
 import { ROUTE_INBOX } from './routes';
@@ -8,21 +8,15 @@ export const useRouterInbox = () => {
   const { push } = router;
 
   const navigateToInbox = useCallback(
-    async (options?: Options) => {
-      await push(ROUTE_INBOX.href.pathname(), undefined, {
-        shallow: true,
-        ...options,
-      });
+    (options?: Options) => {
+      push(ROUTE_INBOX.href.pathname(), options);
     },
     [push],
   );
 
   const navigateToInboxDetail = useCallback(
-    async (id: string, options?: Options) => {
-      await push(`${ROUTE_INBOX.href.pathname()}/${id}`, undefined, {
-        shallow: true,
-        ...options,
-      });
+    (id: string, options?: Options) => {
+      push(`${ROUTE_INBOX.href.pathname()}/${id}`, options);
     },
     [push],
   );

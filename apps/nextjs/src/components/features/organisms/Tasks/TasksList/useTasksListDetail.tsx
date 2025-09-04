@@ -2,19 +2,20 @@ import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
 import { useTaskDetailDrawer } from '@/components/features/organisms/TaskDetails';
 import { useTasksListBody } from '@/components/features/organisms/Tasks';
 import type { UseClickOutsideOptionsHasClickedOutside } from '@/hooks/useClickOutside';
-import { useRouter } from '@/router';
-import type { NextRouter } from 'next/router';
+import type { Params } from '@/shared/nextjs/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 
 type Props = {
-  isTaskDetailURL: (router: NextRouter) => boolean;
-  getTaskDetailId: (router: NextRouter) => string;
+  isTaskDetailURL: (params: Params, pathname: string | null) => boolean;
+  getTaskDetailId: (params: Params, pathname: string | null) => string;
   fetchQuery: (variables: { taskId: string }) => Promise<void>;
 };
 
 export const useTasksListDetail = (props: Props) => {
   const { isTaskDetailURL, getTaskDetailId, fetchQuery } = props;
-  const { router } = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
   const { getTasksListBodyElement } = useTasksListBody();
 
   const hasClickedOutside =
@@ -36,9 +37,9 @@ export const useTasksListDetail = (props: Props) => {
   const { taskId, setId, setLoading } = useTaskDetail();
 
   useEffect(() => {
-    if (!isTaskDetailURL(router)) return;
+    if (!isTaskDetailURL(params, pathname)) return;
 
-    const newId = getTaskDetailId(router);
+    const newId = getTaskDetailId(params, pathname);
     if (taskId === newId) return;
     console.log('useTasksListDetail!: ', newId);
 
@@ -51,7 +52,8 @@ export const useTasksListDetail = (props: Props) => {
       }, 200);
     });
   }, [
-    router,
+    params,
+    pathname,
     onOpen,
     fetchQuery,
     setId,

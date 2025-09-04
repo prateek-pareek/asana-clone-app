@@ -21,12 +21,12 @@ import {
 import { useClickableHoverStyle, useLinkHoverStyle } from '@/hooks';
 import { ROUTE_WORKSPACES, ROUTE_WORKSPACES_OVERVIEW } from '@/router';
 import { useWorkspace } from '@/store/entities/workspace';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type React from 'react';
 import { memo, useCallback, useMemo } from 'react';
 
 export const Workspace = memo(function Workspace() {
-  const router = useRouter();
+  const pathname = usePathname();
   const { isExpanded } = useNavigation();
   const { _hover, selectedStyle } = useLinkHoverStyle();
   const { clickableHoverLightStyle } = useClickableHoverStyle();
@@ -37,8 +37,9 @@ export const Workspace = memo(function Workspace() {
   }, [isExpanded, workspace.name]);
 
   const isCurrentRoute = useMemo(
-    () => router.asPath.includes(ROUTE_WORKSPACES.href.pathname(workspace.id)),
-    [router.asPath, workspace.id],
+    () =>
+      pathname?.includes(ROUTE_WORKSPACES.href.pathname(workspace.id)) ?? false,
+    [pathname, workspace.id],
   );
 
   const { setIsOpen } = useInviteModal();

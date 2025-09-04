@@ -6,13 +6,13 @@ import {
   ROUTE_MY_TASKS_LIST,
 } from '@/router';
 import { useTeammateTaskTabStatus } from '@/store/entities/teammateTaskTabStatus';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { NavListItem } from '../../NavListItem';
 import type { NavListItem as TNavListItem } from '../../type';
 
 export const MyTasks = memo(function MyTasks() {
-  const router = useRouter();
+  const pathname = usePathname();
   const { isTabStatus } = useTeammateTaskTabStatus();
   const href = useMemo(() => {
     switch (true) {
@@ -35,10 +35,10 @@ export const MyTasks = memo(function MyTasks() {
       href: href,
       icon: 'checkCircle',
       isCurrentRoute: () => {
-        return router.pathname.includes(ROUTE_MY_TASKS.href.pathname());
+        return pathname?.includes(ROUTE_MY_TASKS.href.pathname()) ?? false;
       },
     }),
-    [router.pathname, href],
+    [pathname, href],
   );
 
   return <NavListItem item={item} />;

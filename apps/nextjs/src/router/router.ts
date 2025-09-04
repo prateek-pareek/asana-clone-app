@@ -1,4 +1,4 @@
-import { useRouter as useRouterNext } from 'next/router';
+import { useRouter as useRouterNext } from 'next/navigation';
 import { useRouterHome } from './home';
 import { useRouterInbox } from './inbox';
 import { useRouterMyTasks } from './myTasks';

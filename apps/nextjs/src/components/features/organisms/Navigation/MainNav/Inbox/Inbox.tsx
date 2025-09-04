@@ -1,11 +1,11 @@
 import { ROUTE_INBOX } from '@/router';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { memo, useMemo } from 'react';
 import { NavListItem } from '../../NavListItem';
 import type { NavListItem as TNavListItem } from '../../type';
 
 export const Inbox = memo(function Inbox() {
-  const router = useRouter();
+  const pathname = usePathname();
 
   const item = useMemo<TNavListItem>(
     () => ({
@@ -13,9 +13,9 @@ export const Inbox = memo(function Inbox() {
       href: ROUTE_INBOX.href.pathname(),
       icon: 'bell',
       isCurrentRoute: () =>
-        router.pathname.includes(ROUTE_INBOX.href.pathname()),
+        pathname?.includes(ROUTE_INBOX.href.pathname()) ?? false,
     }),
-    [router.pathname],
+    [pathname],
   );
 
   return <NavListItem item={item} />;

@@ -9,6 +9,7 @@ import {
 } from '@/router';
 import type { Options } from '@/router/types';
 import { useProjectsProjectId } from '@/store/app/projects/project';
+import { useParams, usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 import { useTasksContext } from '../TasksProvider';
 
@@ -35,24 +36,26 @@ export const useTasksRouter = (): Result => {
     navigateToMyTasksBoard,
     navigateToInboxDetail,
   } = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
 
   const navigateToTaskDetail = useCallback(
     async (taskId: string, options?: Options) => {
       if (isHomePage) {
-        await navigateToHomeDetail(taskId);
+        navigateToHomeDetail(taskId);
         return;
       }
       if (isInboxPage) {
-        await navigateToInboxDetail(taskId);
+        navigateToInboxDetail(taskId);
         return;
       }
 
       if (isMyTasksPage) {
-        await navigateToMyTasksTaskDetail(taskId, options);
+        navigateToMyTasksTaskDetail(taskId, options);
         return;
       }
 
-      await navigateToProjectsTaskDetail(projectId, taskId, options);
+      navigateToProjectsTaskDetail(projectId, taskId, options);
     },
     [
       isHomePage,
@@ -69,22 +72,23 @@ export const useTasksRouter = (): Result => {
   const navigateToTaskBoard = useCallback(
     async (options?: Options) => {
       if (isMyTasksPage) {
-        await navigateToMyTasksBoard(options);
+        navigateToMyTasksBoard(options);
         return;
       }
 
-      await navigateToProjectsBoard(projectId, options);
+      navigateToProjectsBoard(projectId, options);
     },
     [isMyTasksPage, navigateToMyTasksBoard, navigateToProjectsBoard, projectId],
   );
 
   const isTaskDetailURLById = useCallback(
     (taskId: string) => {
-      if (isMyTasksPage) return isMyTasksDetailURLById(router, taskId);
+      if (isMyTasksPage)
+        return isMyTasksDetailURLById(params, pathname, taskId);
 
-      return isProjectsDetailURLById(router, taskId);
+      return isProjectsDetailURLById(params, pathname, taskId);
     },
-    [isMyTasksPage, router],
+    [isMyTasksPage, params, pathname],
   );
 
   const getTasksDetailFeedURL = useCallback(
@@ -97,10 +101,10 @@ export const useTasksRouter = (): Result => {
   );
 
   const getTasksDetailFeedId = useCallback(() => {
-    if (isMyTasksPage) return getMyTasksDetailFeedId(router);
+    if (isMyTasksPage) return getMyTasksDetailFeedId(params, pathname);
 
-    return getProjectsDetailFeedId(router);
-  }, [isMyTasksPage, router]);
+    return getProjectsDetailFeedId(params, pathname);
+  }, [isMyTasksPage, params, pathname]);
 
   return {
     navigateToTaskDetail,

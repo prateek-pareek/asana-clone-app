@@ -1,14 +1,18 @@
-import type { NextRouter } from 'next/router';
+'use client';
+import type { Params } from '@/shared/nextjs/navigation';
 import { ROUTE_INBOX } from './routes';
 
-export const isInboxDetailURL = (router: NextRouter): boolean => {
+export const isInboxDetailURL = (params: Params): boolean => {
   return (
-    !!router.query &&
-    !!router.query[ROUTE_INBOX.query]?.length &&
-    !!router.query[ROUTE_INBOX.query]?.[0]
+    !!params &&
+    !!params[ROUTE_INBOX.query]?.length &&
+    !!params[ROUTE_INBOX.query]?.[0]
   );
 };
-export const getInboxDetailId = (router: NextRouter): string =>
-  (isInboxDetailURL(router) &&
-    (router.query?.[ROUTE_INBOX.query]?.[0] as string)) ||
-  '';
+export const getInboxDetailId = (params: Params): string => {
+  return (
+    (isInboxDetailURL(params) &&
+      (params?.[ROUTE_INBOX.query]?.[0] as string)) ||
+    ''
+  );
+};

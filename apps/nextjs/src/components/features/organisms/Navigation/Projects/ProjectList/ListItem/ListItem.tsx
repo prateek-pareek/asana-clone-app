@@ -10,10 +10,11 @@ import {
   Text,
 } from '@/components/ui/atoms';
 import { useClickableHoverStyle, useLinkHoverStyle } from '@/hooks';
-import { ROUTE_PROJECTS_LIST, useRouter } from '@/router';
+import { ROUTE_PROJECTS_LIST } from '@/router';
 import { ROUTE_PROJECTS } from '@/router/projects';
 import { useProject } from '@/store/entities/project';
 import { useProjectBaseColor } from '@/store/entities/projectBaseColor';
+import { usePathname } from 'next/navigation';
 import { memo, useMemo } from 'react';
 
 type Props = {
@@ -27,10 +28,10 @@ export const ListItem = memo(function ListItem(props: Props) {
   const { projectBaseColor } = useProjectBaseColor(project.projectBaseColorId);
   const { _hover, selectedStyle } = useLinkHoverStyle();
   const { clickableHoverLightStyle } = useClickableHoverStyle();
-  const { router } = useRouter();
+  const pathname = usePathname();
   const selected = useMemo(
-    () => router.asPath.includes(ROUTE_PROJECTS.href.pathname(projectId)),
-    [projectId, router.asPath],
+    () => pathname?.includes(ROUTE_PROJECTS.href.pathname(projectId)) ?? false,
+    [projectId, pathname],
   );
 
   return (

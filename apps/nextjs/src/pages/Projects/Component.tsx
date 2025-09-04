@@ -14,7 +14,7 @@ import { isProjectsOverviewURL } from '@/router/projects';
 import { useMyTasksTaskListStatus } from '@/store/app/myTasks/taskListStatus';
 import { useProjectsProjectId } from '@/store/app/projects/project';
 import { TaskListSortStatusCode } from '@/store/entities/taskListSortStatus';
-import type { NextRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { memo, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { Board } from './Board';
 import { Calendar } from './Calendar';
@@ -56,12 +56,12 @@ export const Component = memo(function Component(props: Props) {
   );
 });
 
-const mapURLtoTabIndex = ({ router }: { router: NextRouter }): Index => {
-  if (isProjectsListURL(router)) return LIST_INDEX;
-  if (isProjectsBoardURL(router)) return BOARD_INDEX;
-  if (isProjectsCalendarURL(router)) return CALENDAR_INDEX;
-  if (isProjectsFilesURL(router)) return FILES_INDEX;
-  if (isProjectsOverviewURL(router)) return OVERVIEW_INDEX;
+const mapURLtoTabIndex = ({ pathname }: { pathname: string | null }): Index => {
+  if (isProjectsListURL(pathname)) return LIST_INDEX;
+  if (isProjectsBoardURL(pathname)) return BOARD_INDEX;
+  if (isProjectsCalendarURL(pathname)) return CALENDAR_INDEX;
+  if (isProjectsFilesURL(pathname)) return FILES_INDEX;
+  if (isProjectsOverviewURL(pathname)) return OVERVIEW_INDEX;
 
   return LIST_INDEX;
 };
@@ -73,12 +73,14 @@ const WrappedComponent = memo(function WrappedComponent() {
     navigateToProjectsCalendar,
     navigateToProjectsFiles,
     navigateToProjectsOverview,
-    router,
   } = useRouter();
   const { isSorted, sortBy } = useMyTasksTaskListStatus();
   const { queryLoading, startTabContentLoading, endTabContentLoading } =
     useProjectsPageContext();
-  const [tabIndex, setTabIndex] = useState<Index>(mapURLtoTabIndex({ router }));
+  const pathname = usePathname();
+  const [tabIndex, setTabIndex] = useState<Index>(
+    mapURLtoTabIndex({ pathname }),
+  );
   const { projectId } = useProjectsProjectId();
   const prevProjectId = usePrevious(projectId);
   const hasProjectChanged = useMemo(() => {
