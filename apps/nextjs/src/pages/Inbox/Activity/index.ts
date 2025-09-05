@@ -1,1 +1,1 @@
-export * from './Activity';
+export { Activity } from './Activity';
