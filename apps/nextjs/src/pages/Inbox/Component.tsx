@@ -1,3 +1,5 @@
+'use client';
+
 import { MainHeader } from '@/components/features/organisms/MainHeader';
 import { Flex } from '@/components/ui/atoms';
 import { Head } from '@/components/ui/atoms/Head';
