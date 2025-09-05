@@ -1,4 +1,5 @@
 import { useTaskCollaboratorCreatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useTeammateResponse } from '@/store/entities/teammate';
 import { useAtomCallback } from 'jotai/utils';
@@ -48,7 +49,7 @@ export const useTaskCollaboratorCreatedSubscription = (props: Props) => {
       (_get, _set, response: Response) => {
         const taskCollaboratorCreated = response.taskCollaboratorCreated;
 
-        if (__DEV__) console.log('Task Collaborator Created!: ');
+        if (isDev()) console.log('Task Collaborator Created!: ');
 
         setTaskCollaborators([taskCollaboratorCreated]);
         setTeammates([taskCollaboratorCreated.teammate]);

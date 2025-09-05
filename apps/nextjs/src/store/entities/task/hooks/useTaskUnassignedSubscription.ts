@@ -1,4 +1,5 @@
 import { useTaskUnassignedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import {
   type TaskUnassignedSubscriptionResponse,
@@ -24,7 +25,7 @@ export const useTaskUnassignedSubscription = (props: Props) => {
     async (response: TaskUnassignedSubscriptionResponse) => {
       const data = response.taskUnassigned;
 
-      if (__DEV__) console.log('task unassigned!');
+      if (isDev()) console.log('task unassigned!');
 
       resetTeammateTask(data.teammateTaskId);
       await setTaskById(data.task.id, { assigneeId: '' });

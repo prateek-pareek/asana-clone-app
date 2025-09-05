@@ -1,4 +1,5 @@
 import { useTeammateTaskSectionCreatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback, useMemo } from 'react';
@@ -46,7 +47,7 @@ export const useTeammateTaskSectionCreatedSubscription = (props: Props) => {
     (response: Response) => {
       const updated = response.teammateTaskSectionCreated;
 
-      if (__DEV__) console.log('Teammate Task Section created!');
+      if (isDev()) console.log('Teammate Task Section created!');
 
       setTeammatesTaskSections([updated]);
     },

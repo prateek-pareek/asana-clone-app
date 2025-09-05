@@ -1,4 +1,5 @@
 import { useTaskUndeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useResetDeletedTask } from '@/store/entities/deletedTask';
 import { useProjectTaskResponse } from '@/store/entities/projectTask';
@@ -23,7 +24,7 @@ export const useTaskUndeletedSubscription = (props: Props) => {
     async (response: Response) => {
       const data = response.taskUndeleted;
 
-      if (__DEV__) console.log('Task undeleted!');
+      if (isDev()) console.log('Task undeleted!');
 
       if (data.deletedTask) {
         resetDeletedTask(data.deletedTask.id);

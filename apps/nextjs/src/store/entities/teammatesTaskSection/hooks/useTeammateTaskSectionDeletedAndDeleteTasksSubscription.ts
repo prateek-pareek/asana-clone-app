@@ -1,4 +1,5 @@
 import { useTeammateTaskSectionDeletedAndDeleteTasksSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useResetTeammateTask } from '@/store/entities/teammateTask';
 import { useAtomCallback } from 'jotai/utils';
@@ -55,7 +56,7 @@ export const useTeammateTaskSectionDeletedAndDeleteTasksSubscription = (
       async (_get, _set, response: Response) => {
         const data = response.teammateTaskSectionDeletedAndDeleteTasks;
 
-        if (__DEV__) console.log('Teammate Task Section deleted!');
+        if (isDev()) console.log('Teammate Task Section deleted!');
 
         const teammateTaskSectionId = data.teammateTaskSection.id;
         const teammateTaskIds = data.teammateTaskIds;

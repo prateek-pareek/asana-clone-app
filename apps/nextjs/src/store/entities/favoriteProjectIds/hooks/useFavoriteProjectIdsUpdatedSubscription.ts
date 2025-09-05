@@ -1,4 +1,5 @@
 import { useFavoriteProjectIdsUpdatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback, useMemo } from 'react';
@@ -23,7 +24,7 @@ export const useFavoriteProjectIdsUpdatedSubscription = (props: Props) => {
     (response: Response) => {
       const favoriteProjectIdsUpdated = response.favoriteProjectIdsUpdated;
 
-      if (__DEV__) console.log('Favorite Project IDs Updated!: ');
+      if (isDev()) console.log('Favorite Project IDs Updated!: ');
 
       setFavoriteProjectIds(favoriteProjectIdsUpdated);
     },

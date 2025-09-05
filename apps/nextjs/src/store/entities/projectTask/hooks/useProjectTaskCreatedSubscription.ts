@@ -1,4 +1,5 @@
 import { useProjectTaskCreatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -47,7 +48,7 @@ export const useProjectTaskCreatedSubscription = (props: Props) => {
       (_, __, response: Response) => {
         const projectTaskCreated = response.projectTaskCreated;
 
-        if (__DEV__) console.log('Project Task Created!: ');
+        if (isDev()) console.log('Project Task Created!: ');
 
         setProjectTask([
           {

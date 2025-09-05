@@ -1,4 +1,5 @@
 import { useTeammateTaskSectionUndeletedAndKeepTasksSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import {
   type TeammateTaskResponse,
@@ -59,7 +60,7 @@ export const useTeammateTaskSectionUndeletedAndKeepTasksSubscription = (
       async (get, _set, response: Response) => {
         const data = response.teammateTaskSectionUndeletedAndKeepTasks;
 
-        if (__DEV__) console.log('Teammate Task Section undeleted!');
+        if (isDev()) console.log('Teammate Task Section undeleted!');
 
         setTeammatesTaskSections(
           [{ ...data.teammateTaskSection, teammateTasks: [] }],

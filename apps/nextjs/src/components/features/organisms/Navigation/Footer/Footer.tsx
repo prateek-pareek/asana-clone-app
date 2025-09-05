@@ -1,4 +1,5 @@
 import { List } from '@/components/ui/atoms';
+import { isDev } from '@/shared/environment';
 import { memo } from 'react';
 import { MAX_WIDTH } from '../Navigation';
 import { Help } from './Help';
@@ -10,7 +11,7 @@ export const Footer = memo(function Footer() {
     <List w={MAX_WIDTH}>
       <InviteTeammates />
       <Help />
-      {__DEV__ && <ResetToken />}
+      {isDev() && <ResetToken />}
     </List>
   );
 });

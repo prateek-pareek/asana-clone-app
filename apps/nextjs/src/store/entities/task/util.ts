@@ -1,3 +1,4 @@
+import { isDev } from '@/shared/environment';
 import { omit } from '@/shared/utils/omit';
 import { diff } from 'deep-object-diff';
 import isEqual from 'lodash-es/isEqual';
@@ -24,7 +25,7 @@ export const isTaskEqual = (value: Task, other: Task): boolean => {
   };
 
   const result = isEqual(task1, task2);
-  if (!result && __DEV__) {
+  if (!result && isDev()) {
     console.log('diff: ', diff(task1, task2));
     console.log('task1: ', task1);
     console.log('task2: ', task2);

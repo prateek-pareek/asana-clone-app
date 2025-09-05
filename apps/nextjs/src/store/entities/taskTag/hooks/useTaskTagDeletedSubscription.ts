@@ -1,4 +1,5 @@
 import { useTaskTagDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback, useMemo } from 'react';
@@ -44,7 +45,7 @@ export const useTaskTagDeletedSubscription = (props: Props) => {
     async (response: Response) => {
       const data = response.taskTagDeleted;
 
-      if (__DEV__) console.log('Teammate Task created!');
+      if (isDev()) console.log('Teammate Task created!');
 
       resetTaskTag(data.id);
     },

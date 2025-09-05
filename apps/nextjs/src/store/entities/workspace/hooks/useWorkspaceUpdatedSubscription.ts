@@ -1,5 +1,6 @@
 import { useWorkspaceUpdatedSubscription as useSubscription } from '@/graphql/hooks';
 import { isDescriptionEqual } from '@/shared/editor/isDescriptionEqual';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -53,13 +54,13 @@ export const useWorkspaceUpdatedSubscription = (props: Props) => {
         const prev = get(workspaceState);
         const workspaceUpdated = response.workspaceUpdated;
 
-        if (__DEV__) console.log('Workspace updated!: ');
+        if (isDev()) console.log('Workspace updated!: ');
 
         setWorkspace(workspaceUpdated);
         if (
           !isDescriptionEqual(prev.description, workspaceUpdated.description)
         ) {
-          if (__DEV__) console.log('Workspace description updated!: ');
+          if (isDev()) console.log('Workspace description updated!: ');
           setHasDescriptionUpdated((s) => s + 1);
         }
       },

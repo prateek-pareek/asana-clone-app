@@ -1,4 +1,5 @@
 import { useTeammateTaskUpdatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useMemo } from 'react';
@@ -45,7 +46,7 @@ export const useTeammateTaskUpdatedSubscription = (props: Props) => {
   const setBySubscription = (response: Response) => {
     const created = response.teammateTaskUpdated;
 
-    if (__DEV__) console.log('Teammate Task updated!');
+    if (isDev()) console.log('Teammate Task updated!');
 
     setTeammateTask([
       {

@@ -1,4 +1,5 @@
 import { useTaskAssignedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import type { TaskAssignedSubscriptionResponse } from '@/store/entities/task';
 import { useTeammateTaskResponse } from '@/store/entities/teammateTask';
@@ -20,7 +21,7 @@ export const useTaskAssignedSubscription = (props: Props) => {
     async (response: TaskAssignedSubscriptionResponse) => {
       const data = response.taskAssigned;
 
-      if (__DEV__) console.log('task assigned!');
+      if (isDev()) console.log('task assigned!');
 
       setTeammateTask([data.teammateTask]);
     },

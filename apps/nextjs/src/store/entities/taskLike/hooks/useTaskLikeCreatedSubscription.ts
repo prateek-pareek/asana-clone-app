@@ -1,4 +1,5 @@
 import { useTaskLikeCreatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -48,7 +49,7 @@ export const useTaskLikeCreatedSubscription = (props: Props) => {
       (_get, _set, response: Response) => {
         const taskLikeCreated = response.taskLikeCreated;
 
-        if (__DEV__) console.log('TaskLike created!: ');
+        if (isDev()) console.log('TaskLike created!: ');
 
         setTaskLikes([taskLikeCreated]);
       },

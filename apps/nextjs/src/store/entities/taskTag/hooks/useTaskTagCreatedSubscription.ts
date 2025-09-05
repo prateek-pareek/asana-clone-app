@@ -1,4 +1,5 @@
 import { useTaskTagCreatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback, useMemo } from 'react';
@@ -44,7 +45,7 @@ export const useTaskTagCreatedSubscription = (props: Props) => {
     async (response: Response) => {
       const data = response.taskTagCreated;
 
-      if (__DEV__) console.log('Teammate Task created!');
+      if (isDev()) console.log('Teammate Task created!');
 
       setTaskTag([data]);
     },

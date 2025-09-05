@@ -1,4 +1,5 @@
 import { useProjectTaskDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -47,7 +48,7 @@ export const useProjectTaskDeletedSubscription = (props: Props) => {
       (_, __, response: Response) => {
         const projectTaskDeleted = response.projectTaskDeleted;
 
-        if (__DEV__) console.log('Project Task Deleted!: ');
+        if (isDev()) console.log('Project Task Deleted!: ');
 
         resetProjectTask(projectTaskDeleted.id);
       },

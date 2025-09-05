@@ -1,4 +1,5 @@
 import { useProjectUpdatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -50,7 +51,7 @@ export const useProjectUpdatedSubscription = (props: Props) => {
       (_get, _set, response: Response) => {
         const projectUpdated = response.projectUpdated;
 
-        if (__DEV__) console.log('Project updated!: ');
+        if (isDev()) console.log('Project updated!: ');
 
         setProjects([projectUpdated]);
       },

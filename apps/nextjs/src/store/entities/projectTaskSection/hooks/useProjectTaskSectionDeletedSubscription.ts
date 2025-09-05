@@ -1,4 +1,5 @@
 import { useProjectTaskSectionDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -47,7 +48,7 @@ export const useProjectTaskSectionDeletedSubscription = (props: Props) => {
       (_, _set, response: Response) => {
         const data = response.projectTaskSectionDeleted;
 
-        if (__DEV__) console.log('Project Task Section deleted!');
+        if (isDev()) console.log('Project Task Section deleted!');
 
         resetProjectTaskSection(data.id);
       },

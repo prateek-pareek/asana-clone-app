@@ -1,4 +1,5 @@
 import { useFavoriteWorkspaceIdsUpdatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback } from 'react';
@@ -20,7 +21,7 @@ export const useFavoriteWorkspaceIdsUpdatedSubscription = (props: Props) => {
     (response: Response) => {
       const favoriteWorkspaceIdsUpdated = response.favoriteWorkspaceIdsUpdated;
 
-      if (__DEV__) console.log('Favorite Workspace IDs Created!: ');
+      if (isDev()) console.log('Favorite Workspace IDs Created!: ');
 
       setFavoriteWorkspaceIds(favoriteWorkspaceIdsUpdated);
     },

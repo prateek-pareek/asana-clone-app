@@ -12,7 +12,4 @@ export default defineConfig({
     mockReset: true,
     restoreMocks: true,
   },
-  define: {
-    __DEV__: true,
-  },
 });

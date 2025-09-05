@@ -1,5 +1,6 @@
 import { useProjectTaskSectionUndeletedAndKeepTasksSubscription as useSubscription } from '@/graphql/hooks';
 import type { ProjectTaskResponse } from '@/graphql/types/projectTask';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import {
   projectTasksByIdsState,
@@ -55,7 +56,7 @@ export const useProjectTaskSectionUndeletedAndKeepTasksSubscription = (
   const setBySubscription = useAtomCallback(
     useCallback(
       async (get, set, response: Response) => {
-        if (__DEV__) console.log('Project Task Section deleted!');
+        if (isDev()) console.log('Project Task Section deleted!');
 
         const data = response.projectTaskSectionUndeletedAndKeepTasks;
 

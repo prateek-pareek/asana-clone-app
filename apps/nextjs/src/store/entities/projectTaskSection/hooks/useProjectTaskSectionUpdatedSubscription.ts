@@ -1,4 +1,5 @@
 import { useProjectTaskSectionUpdatedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -47,7 +48,7 @@ export const useProjectTaskSectionUpdatedSubscription = (props: Props) => {
       (_, set, response: Response) => {
         const updated = response.projectTaskSectionUpdated;
 
-        if (__DEV__) console.log('Project Task Section updated!');
+        if (isDev()) console.log('Project Task Section updated!');
 
         setProjectsTaskSections([updated]);
       },

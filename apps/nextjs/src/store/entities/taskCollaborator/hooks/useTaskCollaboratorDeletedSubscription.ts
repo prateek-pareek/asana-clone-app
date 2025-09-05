@@ -1,4 +1,5 @@
 import { useTaskCollaboratorDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { useAtomCallback } from 'jotai/utils';
 import isEqual from 'lodash-es/isEqual';
@@ -46,7 +47,7 @@ export const useTaskCollaboratorDeletedSubscription = (props: Props) => {
       (_get, _set, response: Response) => {
         const taskCollaboratorDeleted = response.taskCollaboratorDeleted;
 
-        if (__DEV__) console.log('Task Collaborator Deleted!: ');
+        if (isDev()) console.log('Task Collaborator Deleted!: ');
 
         resetTaskCollaborator(taskCollaboratorDeleted.id);
       },

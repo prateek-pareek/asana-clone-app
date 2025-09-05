@@ -1,8 +1,5 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  globals: {
-    __DEV__: true,
-  },
   testMatch: ['**/src/**/?(*.)+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   setupFilesAfterEnv: [
@@ -25,4 +22,4 @@ module.exports = {
     require.resolve('jest-watch-typeahead/filename'),
     require.resolve('jest-watch-typeahead/testname'),
   ],
-}
+};

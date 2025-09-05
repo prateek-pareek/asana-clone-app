@@ -1,4 +1,5 @@
 import { useTaskFeedLikeDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import { taskFeedLikeState } from '@/store/entities/taskFeedLike';
 import { RESET, useAtomCallback } from 'jotai/utils';
@@ -44,7 +45,7 @@ export const useTaskFeedLikeDeletedSubscription = (props: Props) => {
     useCallback(async (_get, set, response: Response) => {
       const taskFeedLikeDeleted = response.taskFeedLikeDeleted;
 
-      if (__DEV__) console.log('TaskFeedLike deleted!: ');
+      if (isDev()) console.log('TaskFeedLike deleted!: ');
 
       set(taskFeedLikeState(taskFeedLikeDeleted.id), RESET);
     }, []),

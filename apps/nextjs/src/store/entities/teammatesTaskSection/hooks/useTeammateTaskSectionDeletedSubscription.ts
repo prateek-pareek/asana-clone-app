@@ -1,4 +1,5 @@
 import { useTeammateTaskSectionDeletedSubscription as useSubscription } from '@/graphql/hooks';
+import { isDev } from '@/shared/environment';
 import { uuid } from '@/shared/uuid';
 import isEqual from 'lodash-es/isEqual';
 import { useCallback, useMemo } from 'react';
@@ -46,7 +47,7 @@ export const useTeammateTaskSectionDeletedSubscription = (props: Props) => {
     (response: Response) => {
       const data = response.teammateTaskSectionDeleted;
 
-      if (__DEV__) console.log('Teammate Task Section deleted!');
+      if (isDev()) console.log('Teammate Task Section deleted!');
 
       resetTeammateTaskSection(data.id);
     },
