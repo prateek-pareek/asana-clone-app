@@ -17,7 +17,7 @@ export const theme = extendTheme({
       'html, body': {
         width: '100%',
         height: '100%',
-        fontFamily: 'Roboto',
+        fontFamily: 'var(--font-roboto)',
         overflow: 'hidden',
         color:
           props.colorMode === 'light'
@@ -39,7 +39,6 @@ export const theme = extendTheme({
     initialColorMode: 'light',
     useSystemColorMode: false,
   },
-
   colors: {
     primary: defaultTheme.colors.teal['400'],
     alert: defaultTheme.colors.red['400'],
