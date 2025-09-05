@@ -1,1 +1,1 @@
-export * from './AddToPortfolio';
+export { AddToPortfolio } from './AddToPortfolio';

@@ -1,1 +1,1 @@
-export * from './ExportAndPrint';
+export { ExportAndPrint } from './ExportAndPrint';

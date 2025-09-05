@@ -1,1 +1,1 @@
-export * from './OverviewContent';
+export { OverviewContent } from './OverviewContent';

@@ -1,1 +1,1 @@
-export * from './CopyProjectLink';
+export { CopyProjectLink } from './CopyProjectLink';

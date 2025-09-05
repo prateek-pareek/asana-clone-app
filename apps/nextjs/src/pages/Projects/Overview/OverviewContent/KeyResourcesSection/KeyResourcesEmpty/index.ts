@@ -1,1 +1,1 @@
-export * from './KeyResourcesEmpty';
+export { KeyResourcesEmpty } from './KeyResourcesEmpty';

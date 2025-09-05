@@ -1,1 +1,1 @@
-export * from './EditProjectDetails';
+export { EditProjectDetails } from './EditProjectDetails';

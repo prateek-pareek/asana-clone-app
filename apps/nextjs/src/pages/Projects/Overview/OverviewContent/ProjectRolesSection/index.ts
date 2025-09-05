@@ -1,1 +1,1 @@
-export * from './ProjectRolesSection';
+export { ProjectRolesSection } from './ProjectRolesSection';

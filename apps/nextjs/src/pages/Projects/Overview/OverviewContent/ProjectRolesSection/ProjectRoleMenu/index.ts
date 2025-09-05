@@ -1,1 +1,1 @@
-export * from './ProjectRoleMenu';
+export { ProjectRoleMenu } from './ProjectRoleMenu';

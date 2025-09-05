@@ -1,1 +1,1 @@
-export * from './Import';
+export { Import } from './Import';

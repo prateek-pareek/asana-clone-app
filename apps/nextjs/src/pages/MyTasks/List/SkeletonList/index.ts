@@ -1,2 +1,2 @@
-export * from './SkeletonListContent';
-export * from './SkeletonListHeader';
+export { SkeletonListContent } from './SkeletonListContent';
+export { SkeletonListHeader } from './SkeletonListHeader';

@@ -1,1 +1,1 @@
-export * from './Duplicate';
+export { Duplicate } from './Duplicate';

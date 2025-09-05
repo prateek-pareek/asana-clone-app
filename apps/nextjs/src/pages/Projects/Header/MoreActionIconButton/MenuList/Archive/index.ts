@@ -1,1 +1,1 @@
-export * from './Archive';
+export { Archive } from './Archive';

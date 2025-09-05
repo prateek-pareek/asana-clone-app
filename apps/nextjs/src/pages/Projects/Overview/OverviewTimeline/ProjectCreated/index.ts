@@ -1,1 +1,1 @@
-export * from './ProjectCreated';
+export { ProjectCreated } from './ProjectCreated';

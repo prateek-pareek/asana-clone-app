@@ -1,1 +1,1 @@
-export * from './OverviewLeft';
+export { OverviewLeft } from './OverviewLeft';
