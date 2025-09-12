@@ -12,7 +12,7 @@ type DrawerStyle = {
 };
 
 export const useDrawerStyle = () => {
-  const style = useStyleConfig('Drawer') as DrawerStyle;
+  const style = useStyleConfig('Drawer') as unknown as DrawerStyle;
 
   return {
     drawerStyle: useMemo((): DrawerStyle => {
