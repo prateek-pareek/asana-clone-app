@@ -13,8 +13,10 @@ export const TaskDetailModal = memo(function TaskDetailModal(props: Props) {
   const { loading } = useTaskDetail();
 
   const handleClose = useCallback(() => {
-    onClose();
     props.backToPage();
+    setTimeout(() => {
+      onClose();
+    });
   }, [onClose, props]);
 
   return (
