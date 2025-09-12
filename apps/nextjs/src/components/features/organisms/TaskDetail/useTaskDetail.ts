@@ -1,18 +1,16 @@
 import { atom, useAtom } from 'jotai';
-import { atomWithReset, useResetAtom } from 'jotai/utils';
+import { atomWithReset } from 'jotai/utils';
 
 const loadingAtom = atom<boolean>(false);
 
-const idAtom = atomWithReset<string>('');
+export const idAtom = atomWithReset<string>('');
 
-const scrollIdAtom = atomWithReset<string>('');
+export const scrollIdAtom = atomWithReset<string>('');
 
 export const useTaskDetail = () => {
   const [id, setId] = useAtom(idAtom);
   const [loading, setLoading] = useAtom(loadingAtom);
   const [scrollId, setScrollId] = useAtom(scrollIdAtom);
-  const resetScrollId = useResetAtom(scrollIdAtom);
-  const resetId = useResetAtom(idAtom);
 
   return {
     loading,
@@ -21,7 +19,5 @@ export const useTaskDetail = () => {
     setScrollId,
     setId,
     setLoading,
-    resetScrollId,
-    resetId,
   };
 };

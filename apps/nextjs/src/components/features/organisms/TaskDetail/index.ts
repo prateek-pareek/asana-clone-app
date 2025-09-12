@@ -1,4 +1,6 @@
-export * from './TaskDetailHeader';
-export * from './TaskDetailBody';
-export * from './TaskDetailFooter';
-export * from './useTaskDetail';
+export { TaskDetailHeader } from './TaskDetailHeader';
+export { TaskDetailBody, useTaskDetailBody } from './TaskDetailBody';
+export { TaskDetailFooter } from './TaskDetailFooter';
+export { useTaskDetail } from './useTaskDetail';
+export { useTaskDetailResetId } from './useTaskDetailResetId';
+export { useTaskDetailResetScrollId } from './useTaskDetailResetScrollId';

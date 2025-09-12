@@ -1,4 +1,7 @@
-import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
+import {
+  useTaskDetail,
+  useTaskDetailResetScrollId,
+} from '@/components/features/organisms/TaskDetail';
 import { Flex } from '@/components/ui/atoms';
 import type { Ref } from 'react';
 import { memo, useEffect } from 'react';
@@ -14,7 +17,8 @@ type Props = {
 
 export const TaskDetailBody = memo(function TaskDetailBody(props: Props) {
   const { ref } = useTaskDetailBody();
-  const { scrollId, taskId, resetScrollId } = useTaskDetail();
+  const { resetScrollId } = useTaskDetailResetScrollId();
+  const { scrollId, taskId } = useTaskDetail();
 
   useEffect(() => {
     if (props.loading) return;

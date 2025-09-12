@@ -18,9 +18,11 @@ export const TaskDetailDrawer = memo(function TaskDetailDrawer(props: Props) {
   const { loading } = useTaskDetail();
   const { ref } = useTaskDetailDrawerRef();
 
-  const handleClose = useCallback(async () => {
+  const handleClose = useCallback(() => {
     backToPage();
-    onClose();
+    setTimeout(() => {
+      onClose();
+    });
   }, [backToPage, onClose]);
 
   return (

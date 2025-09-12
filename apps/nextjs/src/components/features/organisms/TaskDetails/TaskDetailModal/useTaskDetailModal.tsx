@@ -1,11 +1,15 @@
-import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
+import {
+  useTaskDetailResetId,
+  useTaskDetailResetScrollId,
+} from '@/components/features/organisms/TaskDetail';
 import { atom, useAtom } from 'jotai';
 import { useCallback } from 'react';
 
 const isOpenAtom = atom(false);
 
 export const useTaskDetailModal = () => {
-  const { resetScrollId, resetId } = useTaskDetail();
+  const { resetScrollId } = useTaskDetailResetScrollId();
+  const { resetId } = useTaskDetailResetId();
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
 
   const onClose = useCallback(() => {

@@ -1,4 +1,7 @@
-import { useTaskDetail } from '@/components/features/organisms/TaskDetail';
+import {
+  useTaskDetail,
+  useTaskDetailResetId,
+} from '@/components/features/organisms/TaskDetail';
 import { useTaskDetailSide } from '@/components/features/organisms/TaskDetails';
 import type { Params } from '@/shared/nextjs/navigation';
 import { useParams, usePathname } from 'next/navigation';
@@ -11,7 +14,8 @@ type Props = {
 };
 
 export const useInboxTaskDetail = (props: Props) => {
-  const { setId, setLoading, taskId, resetId } = useTaskDetail();
+  const { setId, setLoading, taskId } = useTaskDetail();
+  const { resetId } = useTaskDetailResetId();
   const { onOpen } = useTaskDetailSide();
   const { isTaskDetailURL, getTaskDetailId, fetchQuery } = props;
   const params = useParams();
