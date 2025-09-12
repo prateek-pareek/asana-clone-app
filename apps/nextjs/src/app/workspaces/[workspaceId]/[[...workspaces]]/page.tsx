@@ -1,4 +1,4 @@
-import { Container as Workspaces } from '@/pages/Workspaces';
+import { Container as Workspaces } from '@/components/pages/Workspaces';
 import { generateTitle } from '@/shared/metatag/generateTitle';
 import type { Metadata } from 'next';
 

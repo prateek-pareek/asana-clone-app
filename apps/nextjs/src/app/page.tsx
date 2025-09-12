@@ -1,4 +1,4 @@
-import { Container } from '@/pages/Home';
+import { Container } from '@/components/pages/Home';
 import { generateTitle } from '@/shared/metatag/generateTitle';
 import type { Metadata } from 'next';
 
